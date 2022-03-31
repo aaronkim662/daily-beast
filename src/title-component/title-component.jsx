@@ -1,6 +1,9 @@
 import React from "react";
 
 // does not take in props
-const TitleComponent = () => {
-
+export const TitleComponent = () => {
+  return (
+  
+    <div>GIPHY GRABBER</div>
+  )
 }
