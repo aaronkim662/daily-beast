@@ -1,0 +1,33 @@
+.title-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 0 8% 0 8%;
+  padding-top: 12px;
+  height: 34px;
+}
+
+.giphy-icon {
+  padding-right: 12px;
+  width: 25px;
+  height: 29px;
+  object-fit: fill;
+  background: transparent 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.app-title {
+  color: #ffffff;
+  height: 34px;
+  font-size: 28px;
+  font: normal normal 900 28px/34px 'Lato', sans-serif;
+  text-align: left;
+  letter-spacing: 0px;
+  opacity: 1;
+}
+
+@media (max-width: 340px) {
+  .title-component {
+    margin: 0 3% 0 3%;
+  }
+}
