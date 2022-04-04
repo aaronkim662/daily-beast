@@ -1,10 +1,10 @@
 import React from "react";
 import icon from './giphy-icon.png'
-import './title-component.css'
+import './title-container.css'
 
-export const TitleComponent = () => {
+export const TitleContainer = () => {
   return (
-    <div className = 'title-component'>
+    <div className = 'title-container'>
       <img 
         src = {icon} 
         alt = 'giphy-icon' 

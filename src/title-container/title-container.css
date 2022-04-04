@@ -1,4 +1,4 @@
-.title-component {
+.title-container {
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 340px) {
-  .title-component {
+  .title-container {
     margin: 0 3% 0 3%;
   }
 }
