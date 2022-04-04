@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { SearchInput } from './search-input/searchInput';
-import { TitleComponent } from './title-component/title-component';
+import { TitleContainer } from './title-container/title-container';
 import { PreviousContainer } from './previous-container/previousContainer';
 import { ResultsContainer } from './results-container/resultsContainer';
 import Masonry from 'react-masonry-css';
@@ -109,7 +109,7 @@ const App = () => {
 
   return (
     <div className="giphy-app">
-      <TitleComponent />
+      <TitleContainer />
       <SearchInput
         search = { search }
         setSearch = { setSearch }
