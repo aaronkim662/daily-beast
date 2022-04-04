@@ -12,18 +12,20 @@ app.use(cors());
 //   res.send('')
 // });
 
-app.get('/giphy/search', (req, res) => {
+app.get('/giphy/:search', (req, res) => {
   axios.get(`https://api.giphy.com/v1/gifs/search`, {
     params: {
       api_key: process.env.REACT_APP_GIPHY_KEY,
-      q: 'dog'
+      q: req.params.search,
+      limit: parseInt(req.query.limit),
+      offset: req.query.offset ? parseInt(req.query.offset) : 0
     }
   })
   .then(response => {
     res.json(response.data);
   })
   .catch(error => {
-    console.log(error.response)
+    console.log(error)
   });
 });
 
