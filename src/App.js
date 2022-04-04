@@ -84,7 +84,7 @@ const App = () => {
               key = {element.id}
               className = 'giphy-image'
               src = {element.images.fixed_height.url} 
-              alt = 'test' 
+              alt = {element.title} 
               style = {{height: randomHeight}}
             />
         )
