@@ -1,3 +1,26 @@
 .giphy-app {
-    text-align: center;
+  margin:auto;
+  text-align: center;
+  overscroll-behavior: none;
+}
+
+.masonry-grid {
+  display: flex;
+  justify-content: center;
+  margin: 30px 9% 0 9%;
+  width: 80%
+}
+
+.giphy-image {
+  width: 100%;
+  border: 1px;
+  background: transparent linear-gradient(232deg, #121212 0%, #606060 100%) 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+@media (max-width: 340px) {
+  .masonry-grid {
+    margin: 3% 2% 0 2%;
+    width: 95%;
+  }
 }
