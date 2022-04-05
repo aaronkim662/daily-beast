@@ -1,19 +1,16 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { SearchInput } from './search-input/searchInput';
-import { TitleContainer } from './title-container/title-container';
-import { PreviousContainer } from './previous-container/previousContainer';
-import { ResultsContainer } from './results-container/resultsContainer';
+import { TitleContainer, PreviousContainer, ResultsContainer, SearchInput } from './import.js';
+import * as js from './javascripts/format-text'
 import Masonry from 'react-masonry-css';
 import axios from 'axios';
 
 const App = () => {
-
   const [gifs, setGifs] = useState([]);
   const [search, setSearch] = useState('');
-  const [result, setResult] = useState('')
-  const [previous, setPrevious] = useState('')
-  const [scrolled, setScrolled] = useState(false)
+  const [result, setResult] = useState('');
+  const [previous, setPrevious] = useState('');
+  const [scrolled, setScrolled] = useState(false);
   
   const getGifs = async (event, value, ) => {
     console.log('', gifs.length, search)
@@ -41,13 +38,13 @@ const App = () => {
     
     if(validateData && gifs.length === 0 && !scrolled) {
       setGifs(data.data.data);
-      setResult(search);
+      setResult(js.formatToUppercase(search));
     }
 
     if(validateData && gifs.length > 0 && search !== result && !scrolled){
       setGifs(data.data.data);
       setPrevious(result)
-      setResult(search);
+      setResult(js.formatToUppercase(search));
     } 
 
     if(scrolled && value) {
@@ -70,8 +67,6 @@ const App = () => {
         getGifs(null, search);
         window.scrollTo(0, fullHeight - 500)
       }, 1000)
-      
-      // document.documentElement.clientHeight = 
     } 
   }
 
