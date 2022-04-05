@@ -1,6 +1,6 @@
 import './previousContainer.css';
 
-export const PreviousContainer = (props) => {
+const PreviousContainer = (props) => {
   return (
     <div className = 'previous-container'>
       <div className = 'static-elements'>
@@ -13,3 +13,5 @@ export const PreviousContainer = (props) => {
     </div>
   )
 }
+
+export default PreviousContainer;

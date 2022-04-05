@@ -1,8 +1,7 @@
-import React from "react";
-import icon from './giphy-icon.png'
-import './title-container.css'
+import icon from './giphy-icon.png';
+import './title-container.css';
 
-export const TitleContainer = () => {
+const TitleContainer = () => {
   return (
     <div className = 'title-container'>
       <img 
@@ -14,3 +13,5 @@ export const TitleContainer = () => {
     </div>
   )
 }
+
+export default TitleContainer;

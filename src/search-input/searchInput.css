@@ -2,8 +2,6 @@
   display: flex;
   width: 80%;
   margin: 0 9% 0 9%;
-  
-  /* background-color: white; */
 }
 
 #search-input {
@@ -34,6 +32,6 @@
 @media (max-width: 340px) {
   #search-form {
     margin: 0 3% 0 3%;
-    width: 95%
+    width: 95%;
   }
 }

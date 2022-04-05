@@ -1,9 +1,7 @@
 .results-container {
   display: flex;
-  /* justify-content: flex-end; */
   align-items: flex-end;
   text-align: left;
-  
   font-size: 16px;
   letter-spacing: 0px;
   color: #B2B2B2;
@@ -13,7 +11,6 @@
 
 .results-container-value {
   display: table-cell;
-  
   font: normal normal bold 16px/16px 'Lato', 'sans-serif';
 }
 

@@ -1,14 +1,16 @@
 import './resultsContainer.css';
 
-export const ResultsContainer = (props) => {
+const ResultsContainer = (props) => {
   return (
     <div className='results-container'>
       <div className = 'static-element'>
         Showing Results for: 
       </div>
       <div className='results-container-value'>
-        {props.result}
+        {props.results}
       </div>
     </div>
   )
 }
+
+export default ResultsContainer;

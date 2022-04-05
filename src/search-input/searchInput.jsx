@@ -1,11 +1,8 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import './searchInput.css'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import './searchInput.css';
 
-
-export const SearchInput = (props) => {
-
+const SearchInput = (props) => {
   return (
     <form id = 'search-form' onSubmit = {(event) => props.getGifs(event)}>
       <input
@@ -23,10 +20,10 @@ export const SearchInput = (props) => {
           icon = { faMagnifyingGlass }
           flip = "horizontal"
           size = 'xl'
-          // className = 'fa-2xl'
         />
       </div>
-      
     </form>
   )
 }
+
+export default SearchInput;
