@@ -13,7 +13,13 @@ describe 'Giphy App', ->
   context 'Loads all entry components', ->
 
     it 'Title container', ->
-      
+      cy.get '.title-container'
+        .find '.app-title'
+        .should 'to.contain', 'GIPHY GRABBER'
+
+      cy.get '.title-container'
+        .find '.giphy-icon'
+        .should 'be.visible'
     
     it 'Previous container', -> 
 
