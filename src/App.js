@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { TitleContainer, PreviousContainer, ResultsContainer, SearchInput } from './import.js';
+import { formatToUppercase } from './javascripts/format-text';
 import Masonry from 'react-masonry-css';
 import axios from 'axios';
 
@@ -67,7 +68,7 @@ const App = () => {
       return [...prev, ...giphyData];
     });
 
-    setResult(search);
+    setResult(formatToUppercase(search));
     setLoading(false);
   }
 
