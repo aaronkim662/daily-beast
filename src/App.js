@@ -18,6 +18,19 @@ const App = () => {
 
   const observer = useRef();
 
+  useEffect(() => {
+    setTimeout(() => {
+      setPrevious(formatToUppercase(result))
+    }, 1000);
+    
+    setGifs([])
+    setUniqueIds([])
+  }, [search]);
+
+  useEffect(() => {
+    if(search !== '') searchGifs()
+  }, [limit, offset, loading]);
+
   const lastElement = useCallback(node => {
     if(loading) return;
     if(observer.current) observer.current.disconnect();
@@ -107,19 +120,6 @@ const App = () => {
     700: 2,
     500: 1
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setPrevious(formatToUppercase(result))
-    }, 1000);
-    
-    setGifs([])
-    setUniqueIds([])
-  }, [search]);
-
-  useEffect(() => {
-    if(search !== '') searchGifs()
-  }, [limit, offset, loading]);
 
   return (
     <div className="giphy-app">
