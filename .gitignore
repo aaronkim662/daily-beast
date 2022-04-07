@@ -10,7 +10,6 @@
 
 # production
 /build
-gif-layout/
 
 # misc
 .DS_Store
