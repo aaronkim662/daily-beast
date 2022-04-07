@@ -3,7 +3,7 @@ searchValue = 'Dog'
 giphyValues = {
   columns: 4,
   mobileColumns: 1,
-  numberOfGifs: 25
+  numberOfGifs: 24
 }
 
 describe 'Giphy App', -> 
@@ -116,16 +116,32 @@ describe 'Giphy App', ->
         cy.get '.results-container-value'
           .should 'to.contain', searchValue
 
-    it 'Displays previous', ->
+    it 'Display infinite scrolling', -> 
+      cy.get '.giphy-image'
+        .last().scrollIntoView()
+      
+      cy.wait 1000
 
+      cy.get '.giphy-image'
+        .its 'length'
+        .should 'be.gt', giphyValues.numberOfGifs
+
+    it 'Displays previous', ->
+      cy.get '#search-input'
+        .clear()
+
+      cy.get '.previous-container-value'
+        .should 'to.contain', searchValue
 
   context 'Checks mobile responsiveness', ->
     before ->
+      cy.reload()
       cy.viewport 303, 800
-    
+
     it 'Have one column', ->
+      cy.get '#search-input'
+        .type "#{searchValue}{enter}"
+
       cy.get '.masonry-grid'
         .find '.masonry-grid-column'
         .should 'have.length', giphyValues.mobileColumns
-        
-      
