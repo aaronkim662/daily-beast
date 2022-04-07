@@ -8,24 +8,21 @@ dotenv.config();
 
 app.use(cors());
 
-// app.get('/', (req, res) => {
-//   res.send('')
-// });
-
 app.get('/giphy/:search', (req, res) => {
+
   axios.get(`https://api.giphy.com/v1/gifs/search`, {
     params: {
       api_key: process.env.REACT_APP_GIPHY_KEY,
       q: req.params.search,
       limit: parseInt(req.query.limit),
-      offset: req.query.offset ? parseInt(req.query.offset) : 0
+      offset: parseInt(req.query.offset)
     }
   })
   .then(response => {
     res.json(response.data);
   })
   .catch(error => {
-    console.log(error)
+    console.log(error);
   });
 });
 
