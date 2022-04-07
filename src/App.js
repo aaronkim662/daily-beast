@@ -22,7 +22,9 @@ const App = () => {
     setTimeout(() => {
       setPrevious(formatToUppercase(result))
     }, 1000);
+
     if(search === '') setResult('')
+
     setGifs([])
     setUniqueIds([])
   }, [search]);
@@ -34,12 +36,14 @@ const App = () => {
   const lastElement = useCallback(node => {
     if(loading) return;
     if(observer.current) observer.current.disconnect();
+
     observer.current = new IntersectionObserver(entries => {
       if(entries[0].isIntersecting){
         setLimit(16);
         setOffset(gifs.length);
       };
     });
+
     if(node) observer.current.observe(node);
   }, 
   [loading, gifs.length, offset, limit]);
@@ -61,7 +65,7 @@ const App = () => {
   const uniqueData = (data) => {
     const gifArr = [];
     data.forEach((element) => {
-      if(!uniqueIds.includes(element.id)){
+      if(!uniqueIds.includes(element.id)) {
         gifArr.push(element)
         setUniqueIds(prev => {
           return [...prev, element.id]
@@ -89,7 +93,7 @@ const App = () => {
     return (
       gifs.map((element, index) => {
         const randomHeight = 100 + Math.random() * 200;
-        if(gifs.length === index + 1){
+        if(gifs.length === index + 1) {
           return (
             <img 
               key = {element.id}
