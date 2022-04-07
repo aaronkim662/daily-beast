@@ -108,9 +108,12 @@ const App = () => {
   };
 
   useEffect(() => {
-      setPrevious(result)
-      setGifs([])
-      setUniqueIds([])
+    setTimeout(() => {
+      setPrevious(formatToUppercase(result))
+    }, 1000);
+    
+    setGifs([])
+    setUniqueIds([])
   }, [search]);
 
   useEffect(() => {
