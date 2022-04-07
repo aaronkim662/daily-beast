@@ -7,7 +7,7 @@ const ResultsContainer = (props) => {
         Showing Results for: 
       </div>
       <div className='results-container-value'>
-        {props.results}
+        {props.result}
       </div>
     </div>
   )
