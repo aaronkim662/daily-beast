@@ -1,7 +1,6 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { TitleContainer, PreviousContainer, ResultsContainer, SearchInput } from './import.js';
-import * as js from './javascripts/format-text'
 import Masonry from 'react-masonry-css';
 import axios from 'axios';
 
@@ -9,21 +8,29 @@ const App = () => {
   const [gifs, setGifs] = useState([]);
   const [search, setSearch] = useState('');
   const [result, setResult] = useState('');
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(24)
+  const [uniqueIds, setUniqueIds] = useState([])
+
   const [previous, setPrevious] = useState('');
-  const [scrolled, setScrolled] = useState(false);
-  
-  const getGifs = async (event, value, ) => {
-    console.log('', gifs.length, search)
-    if(event) event.preventDefault();
-    
-    let offset = 0;
-    let limit = 25;
-    
-    if(value) setSearch(value)
-    if(gifs.length > 0 && value){
-      offset = gifs.length;
-      limit = 8;
-    }
+  const [loading, setLoading] = useState(true);
+
+  const observer = useRef();
+
+  const lastElement = useCallback(node => {
+    if(loading) return;
+    if(observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if(entries[0].isIntersecting){
+        setLimit(16);
+        setOffset(gifs.length);
+      };
+    });
+    if(node) observer.current.observe(node);
+  }, 
+  [loading, gifs.length, offset, limit]);
+
+  const giphyApi = async () => {
     const localhost = 'http://localhost:4000/';
     const data = await axios.get(`${localhost}giphy/${search}`, { 
       params: { 
@@ -32,59 +39,65 @@ const App = () => {
       }
     });
 
-    const validateData = data !== undefined
+    const uniqueElements = uniqueData(data.data.data);
 
-    // if(validateData && gifs.length > 0 && search === result) return; 
-    
-    if(validateData && gifs.length === 0 && !scrolled) {
-      setGifs(data.data.data);
-      setResult(js.formatToUppercase(search));
-    }
-
-    if(validateData && gifs.length > 0 && search !== result && !scrolled){
-      setGifs(data.data.data);
-      setPrevious(result)
-      setResult(js.formatToUppercase(search));
-    } 
-
-    if(scrolled && value) {
-      setScrolled(false)
-      setGifs((prev) => {
-        return prev.concat(data.data.data);
-      })
-    }
+    return uniqueElements;
   }
 
-  const handlescroll = () => {
-    const scrolledPosition = Math.ceil(document.documentElement.scrollTop);
-    const fullHeight = Math.floor(
-      document.documentElement.scrollHeight - document.documentElement.clientHeight
-    );
+  const uniqueData = (data) => {
+    const gifArr = []
+    data.forEach((element) => {
+      if(!uniqueIds.includes(element.id)){
+        gifArr.push(element)
+        setUniqueIds(prev => {
+          return [...prev, element.id]
+        });
+      };
+    });
 
-    if(scrolledPosition >= fullHeight){
-      setTimeout(() => {
-        setScrolled(true)
-        getGifs(null, search);
-        window.scrollTo(0, fullHeight - 500)
-      }, 1000)
-    } 
+    return gifArr;
+  }
+
+  const searchGifs = async (event) => {
+    if(event) event.preventDefault();
+
+    const giphyData = await giphyApi();
+
+    setGifs(prev => {
+      return [...prev, ...giphyData];
+    });
+    setResult(search);
+    setLoading(false);
   }
 
   const formatGifs = () => {
     return (
       gifs.map((element, index) => {
+        // if(gifs.indexOf(element.id) < 0)
         const randomHeight = 100 + Math.random() * 200;
-        return (
+        if(gifs.length === index + 1){
+          return (
             <img 
               key = {element.id}
               className = 'giphy-image'
+              ref = {lastElement}
               src = {element.images.fixed_height.url} 
               alt = {element.title} 
               style = {{height: randomHeight}}
-            />
-        )
+            />)
+        }else {
+          return (
+              <img 
+                key = {element.id}
+                className = 'giphy-image'
+                src = {element.images.fixed_height.url} 
+                alt = {element.title} 
+                style = {{height: randomHeight}}
+              />
+          );
+        };
       })
-    )
+    );
   }
 
   const breakpointColumnsObj = {
@@ -95,12 +108,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handlescroll, { passive: true});
-    
-    return () => {
-      window.removeEventListener('scroll', handlescroll);
-    }
-  }, []);
+      setPrevious(result)
+      setGifs([])
+  }, [search]);
+
+  useEffect(() => {
+    searchGifs()
+  }, [limit, offset, loading])
+
+  // useEffect(() => {
+  //   set
+  // }, [search])
 
   return (
     <div className="giphy-app">
@@ -108,7 +126,7 @@ const App = () => {
       <SearchInput
         search = { search }
         setSearch = { setSearch }
-        getGifs = { getGifs }
+        searchGifs = { searchGifs }
       />
       <PreviousContainer previous = {previous}/>
       <ResultsContainer result = {result}/>
