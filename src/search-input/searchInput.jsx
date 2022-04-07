@@ -3,8 +3,9 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './searchInput.css';
 
 const SearchInput = (props) => {
+  
   return (
-    <form id = 'search-form' onSubmit = {(event) => props.getGifs(event)}>
+    <form id = 'search-form' onSubmit = {(event) => props.searchGifs(event)}>
       <input
         id = 'search-input'
         value = {props.search}
@@ -13,7 +14,7 @@ const SearchInput = (props) => {
       />
       <div 
         id = 'search-icon-container'
-        onClick = {(event) => props.getGifs(event)}
+        onClick = {(event) => props.searchGifs(event)}
       >
         <FontAwesomeIcon
           id = 'search-icon'
