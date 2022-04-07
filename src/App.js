@@ -22,7 +22,7 @@ const App = () => {
     setTimeout(() => {
       setPrevious(formatToUppercase(result))
     }, 1000);
-    
+    if(search === '') setResult('')
     setGifs([])
     setUniqueIds([])
   }, [search]);
