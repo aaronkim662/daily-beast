@@ -10,8 +10,8 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [result, setResult] = useState('');
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(24)
-  const [uniqueIds, setUniqueIds] = useState([])
+  const [limit, setLimit] = useState(24);
+  const [uniqueIds, setUniqueIds] = useState([]);
 
   const [previous, setPrevious] = useState('');
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ const App = () => {
   }
 
   const uniqueData = (data) => {
-    const gifArr = []
+    const gifArr = [];
     data.forEach((element) => {
       if(!uniqueIds.includes(element.id)){
         gifArr.push(element)
@@ -119,7 +119,7 @@ const App = () => {
 
   useEffect(() => {
     if(search !== '') searchGifs()
-  }, [limit, offset, loading])
+  }, [limit, offset, loading]);
 
   return (
     <div className="giphy-app">
