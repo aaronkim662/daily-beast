@@ -66,6 +66,7 @@ const App = () => {
     setGifs(prev => {
       return [...prev, ...giphyData];
     });
+
     setResult(search);
     setLoading(false);
   }
@@ -73,7 +74,6 @@ const App = () => {
   const formatGifs = () => {
     return (
       gifs.map((element, index) => {
-        // if(gifs.indexOf(element.id) < 0)
         const randomHeight = 100 + Math.random() * 200;
         if(gifs.length === index + 1){
           return (
@@ -110,15 +110,12 @@ const App = () => {
   useEffect(() => {
       setPrevious(result)
       setGifs([])
+      setUniqueIds([])
   }, [search]);
 
   useEffect(() => {
-    searchGifs()
+    if(search !== '') searchGifs()
   }, [limit, offset, loading])
-
-  // useEffect(() => {
-  //   set
-  // }, [search])
 
   return (
     <div className="giphy-app">
